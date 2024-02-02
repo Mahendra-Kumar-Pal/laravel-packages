@@ -1,0 +1,179 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Freelace API Documentation",
+        "description": "Freelance API Documentation",
+        "contact": {
+            "email": "admin@admin.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:1234",
+            "description": "Test API Server"
+        }
+    ],
+    "paths": {
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "User's-Record"
+                ],
+                "summary": "get all user's record",
+                "description": "All User's Records",
+                "operationId": "get-all-users",
+                "responses": {
+                    "200": {
+                        "description": "All users fetched successfully"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "User's-Record"
+                ],
+                "summary": "add new user record",
+                "description": "Create New User",
+                "operationId": "create-user",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreUserRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "User Record Added Successfully"
+                    }
+                }
+            }
+        },
+        "/api/singleUser/{id}": {
+            "get": {
+                "tags": [
+                    "User's-Record"
+                ],
+                "summary": "get specific user's record",
+                "description": "Get Specific User's Record",
+                "operationId": "get-specific-user-record",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Record Fetched Successfully"
+                    }
+                }
+            }
+        },
+        "/api/update/{id}": {
+            "post": {
+                "tags": [
+                    "User's-Record"
+                ],
+                "summary": "update specific user",
+                "description": "Update Specific User",
+                "operationId": "update-user",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "user_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "name is required",
+                                        "required": [
+                                            "name"
+                                        ],
+                                        "type": "text"
+                                    },
+                                    "email": {
+                                        "required": [
+                                            "email"
+                                        ],
+                                        "type": "email"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Record Updated Successfully"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "StoreUserRequest": {
+                "title": "Create User Request1",
+                "description": "Create User Request2",
+                "required": [
+                    "name",
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "User's name",
+                        "type": "string",
+                        "example": "Ram"
+                    },
+                    "email": {
+                        "title": "email",
+                        "description": "User's email",
+                        "type": "integer",
+                        "example": "ram@gmail.com"
+                    },
+                    "password": {
+                        "title": "password",
+                        "description": "User's password",
+                        "type": "string",
+                        "example": "password"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "name": "bearerAuth",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}
